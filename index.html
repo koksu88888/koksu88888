@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Przepraszam ❤️</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
+
+    body{
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3a5);
+        overflow:hidden;
+    }
+
+    .bigHeart{
+        position:absolute;
+        font-size:300px;
+        opacity:0.1;
+        animation:pulse 3s infinite;
+        z-index: 0;
+    }
+
+    @keyframes pulse{
+        0%{transform:scale(1)}
+        50%{transform:scale(1.1)}
+        100%{transform:scale(1)}
+    }
+
+    .container{
+        position:relative;
+        padding:50px;
+        width:380px;
+        text-align:center;
+        background:rgba(255,255,255,0.2);
+        backdrop-filter:blur(15px);
+        border-radius:25px;
+        box-shadow:0 15px 40px rgba(0,0,0,0.2);
+        z-index: 2;
+    }
+
+    h1{
+        font-size:42px;
+        color:white;
+        margin-bottom:15px;
+    }
+
+    p{
+        color:white;
+        font-size:18px;
+        margin-bottom:5px;
+    }
+
+    .teddy{
+        font-size:70px;
+        margin-bottom:10px;
+        animation:bounce 2s infinite;
+    }
+
+    @keyframes bounce{
+        0%,100%{transform:translateY(0)}
+        50%{transform:translateY(-10px)}
+    }
+
+    button{
+        padding:14px 25px;
+        border:none;
+        border-radius:12px;
+        font-size:17px;
+        cursor:pointer;
+        margin:10px;
+        transition:0.25s;
+    }
+
+    #yes{
+        background:white;
+        color:#ff4d6d;
+        font-weight:bold;
+    }
+
+    #yes:hover{
+        transform:scale(1.1);
+    }
+
+    #testerBtn{
+        background:#ff4d6d;
+        color:white;
+        position: relative;
+        z-index: 10;
+    }
+
+    #testerBtn:hover{
+        transform:scale(1.1);
+    }
+
+    #no{
+        position:absolute;
+        background:#222;
+        color:white;
+        z-index: 5;
+    }
+
+    .heart{
+        position:absolute;
+        font-size:20px;
+        animation:fall linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes fall{
+        0%{transform:translateY(-10vh)}
+        100%{transform:translateY(110vh)}
+    }
+
+    .explosion{
+        position:absolute;
+        font-size:22px;
+        animation:explode 1s forwards;
+        pointer-events: none;
+    }
+
+    @keyframes explode{
+        0%{transform:scale(1)}
+        100%{transform:scale(3) translateY(-40px);opacity:0}
+    }
+
+    .popup{
+        position:absolute;
+        background:white;
+        padding:8px 14px;
+        border-radius:10px;
+        font-size:15px;
+        animation:fade 4s forwards;
+        z-index: 1;
+    }
+
+    @keyframes fade{
+        0%{opacity:0;transform:translateY(20px)}
+        20%{opacity:1}
+        100%{opacity:0;transform:translateY(-20px)}
+    }
+
+    .loveTester{
+        position:fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        display:none;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+        z-index: 20;
+        backdrop-filter: blur(5px);
+    }
+
+    .bigLoveHeart{
+        position:relative;
+        font-size:220px;
+        cursor: pointer;
+    }
+
+    .loveText{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:30px;
+        font-weight:bold;
+        color:white;
+        text-align:center;
+        width: 100%;
+    }
+
+    .innerHeart{
+        position:absolute;
+        font-size:18px;
+        animation:rise 2s linear;
+    }
+
+    @keyframes rise{
+        0%{transform:translateY(30px);opacity:0}
+        50%{opacity:1}
+        100%{transform:translateY(-80px);opacity:0}
+    }
+</style>
+</head>
+
+<body>
+
+<div class="bigHeart">❤️</div>
+
+<div class="container">
+    <div class="teddy">🐻❤️</div>
+    <h1>Przepraszam</h1>
+    <p>Wybacz mi skarbie prosze >3</p>
+    <p>bardzo ładnie proszę</p>
+    <button id="yes" onclick="forgive()">Wybaczam ❤️</button>
+    <button id="testerBtn" onclick="showTester()">Tester miłości ❤️</button>
+</div>
+
+<button id="no">Nie wybaczam</button>
+
+<div class="loveTester" id="loveTester" onclick="showTester()">
+    <div class="bigLoveHeart">
+        ❤️
+        <div class="loveText">I + E = ❤️ ∞</div>
+    </div>
+</div>
+
+<script>
+const texts=[
+    "Serio mi na Tobie zależy ❤️",
+    "Jesteś dla mnie ważna",
+    "Nie chcę się kłócić",
+    "Twój uśmiech > wszystko",
+    "Nie bądź już zła"
+];
+
+function popup(){
+    const div=document.createElement("div");
+    div.className="popup";
+    div.innerText=texts[Math.floor(Math.random()*texts.length)];
+    div.style.left=Math.random()*80+"vw";
+    div.style.top=Math.random()*80+"vh";
+    document.body.appendChild(div);
+    setTimeout(()=>div.remove(),4000);
+}
+setInterval(popup,3000);
+
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,400);
+
+function explode(x,y){
+    for(let i=0;i<10;i++){
+        const heart=document.createElement("div");
+        heart.className="explosion";
+        heart.innerHTML="💖";
+        heart.style.left=x+"px";
+        heart.style.top=y+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1000);
+    }
+}
+
+document.addEventListener("click",(e)=>{
+    if(e.target.tagName !== 'BUTTON') {
+        explode(e.clientX, e.clientY);
+    }
+});
+
+function forgive(){
+    alert("Dziękuję złotko że mi wybaczyłaś Kocham Cię bardzo! ❤️");
+}
+
+const no=document.getElementById("no");
+no.addEventListener("mouseover",()=>{
+    no.style.left=Math.random()*80+"vw";
+    no.style.top=Math.random()*80+"vh";
+});
+
+let testerInterval = null;
+
+function showTester(){
+    const tester = document.getElementById("loveTester");
+    
+    if(tester.style.display === "flex") {
+        tester.style.display = "none";
+        if(testerInterval) {
+            clearInterval(testerInterval);
+            testerInterval = null;
+        }
+    } 
+    else {
+        tester.style.display = "flex";
+        
+        testerInterval = setInterval(()=>{
+            const heart=document.createElement("div");
+            heart.className="innerHeart";
+            heart.innerHTML="💗";
+            
+            heart.style.left = "50%";
+            heart.style.marginLeft = (Math.random()*100 - 50) + "px";
+            heart.style.top = "50%";
+
+            tester.appendChild(heart);
+            setTimeout(()=>heart.remove(),2000);
+        }, 300);
+    }
+}
+</script>
+
+</body>
+</html>
